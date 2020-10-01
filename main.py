@@ -13,11 +13,11 @@ api = tweepy.API(auth)
 def reply():
     tweets = api.mentions_timeline(read_last_id(file_name), tweet_mode='extended')
     for tweet in reversed(tweets):
-        if '#testmode' in tweet.full_text.lower():
+        if '#hackwithdscmait' in tweet.full_text.lower():
             print(str(tweet.id) + ' - ' + tweet.full_text + ' replied')
             blob = TextBlob(tweet.full_text)
             if blob.sentiment.polarity > 0:
-                api.update_status('@' + tweet.user.screen_name + " Thanks for attending our session! Follow us to get updates about latest events", tweet.id)
+                # api.update_status('@' + tweet.user.screen_name + " Thanks for attending our session! Follow us to get updates about latest events", tweet.id)
                 api.create_favorite(tweet.id)
                 api.retweet(tweet.id)
                 store_last_id(file_name, tweet.id)
@@ -35,4 +35,4 @@ def reply():
                 
 while True:
     reply()
-    time.sleep(5)
+    time.sleep(300)
